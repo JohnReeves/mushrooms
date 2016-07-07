@@ -15,7 +15,7 @@ Open up your Python Pizza from last time, and remember the steps in making a min
 
 We need to make a compound shape - a semicircle on top of a rectangle.
 
-<picture>
+![Imgur](https://i.imgur.com/SJdGZAZ.png)
 
 * Make the semicircle
 
@@ -44,11 +44,11 @@ Our mushroom is made by putting the arc on top of the rectangle.
 Linking the shapes together based on the centre of the circular arc is useful for keeping the shapes together when we move them.
 
 ``` 
-	l=r/2
-	box=[(p[0]-r,p[1]-r),(p[0]+r,p[1]+r)]
-        canvas.create_arc(topbox,style="chord", fill=color, start=rot,extent=180)
-	poly=[(p[0]-l,p[1]),(p[0]+l,p[1]),(p[0]+l,p[1]+r),(p[0]-l,p[1]+r)]
-        canvas.create_polygon(poly, fill=color,outline="black")
+    l=r/2
+    box=[(p[0]-r,p[1]-r),(p[0]+r,p[1]+r)]
+    canvas.create_arc(topbox,style="chord", fill=color, start=rot,extent=180)
+    poly=[(p[0]-l,p[1]),(p[0]+l,p[1]),(p[0]+l,p[1]+r),(p[0]-l,p[1]+r)]
+    canvas.create_polygon(poly, fill=color,outline="black")
 ```
     
 ## Task 2 - Python functions
@@ -69,6 +69,8 @@ Functions in Python are identified with the keyword `def`, this is what mine loo
  
 ## Task 3 - Rotating the big mushroom
 
+![Imgur](https://i.imgur.com/9c4YRLc.png)
+
 The arc rotates easily by changing the start angle. Rectangles don’t rotate but we can rotate the points of a rectangle separately if we create it as a polygon instead!
 
 So, an excellent use for transformations from the maths classes at school, where a rotation of a shape a point is described as:
@@ -79,9 +81,11 @@ So, an excellent use for transformations from the maths classes at school, where
 
 Maths has a simple, and somewhat scary equation, to give you the points of a rotation about the origin.
 
+![Imgur](https://i.imgur.com/tmQxg0G.png)
+
 Each point in the polygon is changed to become:
 
-<picture>
+![Imgur](https://i.imgur.com/cudWZTy.png)
 
 In Python this is written as:
 
@@ -145,7 +149,7 @@ Notice that we try to name our variables in an understandable way, so the code r
 
 ## Task 4 - Making many mushrooms
 
-*Function parameters
+![Imgur](https://i.imgur.com/jr1hNi1.png)
 
 Mushrooms have slight differences in size, and get a bit muddled when I put them on the pizza. 
 
