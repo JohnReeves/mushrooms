@@ -5,61 +5,67 @@
 Open up your Python Pizza from last time, and remember the steps in making a minimal  tk canvas:
              
 ```
-            #import the libraries
-            #create a top level object
-            #attach a canvas
-            #draw something
-            #run the mainloop
+        #import the libraries
+        #create a top level object
+        #attach a canvas
+        #draw something
+        #run the mainloop
 ```
 
 
 We need to make a compound shape - a semicircle on top of a rectangle.
 
+<picture>
+
 * Make the semicircle
 
-```Create_arc((),(), style=”chord”, start=angle, extent=180)```
+```
+Create_arc((),(), style=”chord”, start=angle, extent=180)
+```
 
-Changing the start angle but keeping the extent as 180, has the effect of rotating the arc.
+*NB: Changing the start angle but keeping the extent as 180, has the effect of rotating the arc.
 
 * Make the rectangle
 
-There are two ways of creating reactangles in Tk.
-*create_rectangle()
-**With a bit of trial and error, you discover that it is hard to rotate using create_rectangle.
-*create_polygon()
-**Polygons can be rotated with a bit of maths, so use create_polygon() to make your rectangles.
+There are two ways of creating reactangles in Tk:
+
+*create_rectangle(...)
+**With a bit of trial and error, you discover that it is hard to rotate using create_rectangle
+
+*create_polygon(...)
+**Polygons can be rotated with a bit of maths, so use create_polygon() to make your rectangles
 
 * Making a compound shapes
+
 Our mushroom is made by putting the arc on top of the rectangle.
 
-Linking the shapes together based on the centre of the circular arc.
-It is useful for keeping the shapes together when we move them as well.
+Linking the shapes together based on the centre of the circular arc is useful for keeping the shapes together when we move them.
 
 ``` 
 	l=r/2
 	box=[(p[0]-r,p[1]-r),(p[0]+r,p[1]+r)]
-    canvas.create_arc(topbox,style="chord", fill=color, start=rot,extent=180)
+        canvas.create_arc(topbox,style="chord", fill=color, start=rot,extent=180)
 	poly=[(p[0]-l,p[1]),(p[0]+l,p[1]),(p[0]+l,p[1]+r),(p[0]-l,p[1]+r)]
-    canvas.create_polygon(poly, fill=color,outline="black")
-    ```
+        canvas.create_polygon(poly, fill=color,outline="black")
+```
     
-* Python functions
+## Task 2 - Python functions
 
-Putting the shapes into a function, keeps the shape together, and allows up to draw anywhere on the screen.
+Putting the shapes into a function, keeps the shape together, and allows it to draw anywhere on the screen.
 
-Functions in Python are identified with the keyword ```def```, this is what mine looks like:
+Functions in Python are identified with the keyword `def`, this is what mine looks like:
 
 ```
-Def mushroom(p=(50,50),r=100, color=”red”, rotation=0)
-    l=r/2
-    box=[(p[0]-r,p[1]-r),(p[0]+r,p[1]+r)]
-    canvas.create_arc(topbox,style="chord", fill=color, start=rotation, extent=180)
-    poly=[(p[0]-l,p[1]),(p[0]+l,p[1]),(p[0]+l,p[1]+r),(p[0]-l,p[1]+r)]
-    canvas.create_polygon(poly, fill=color,outline="black")
+    Def mushroom(p=(50,50),r=100, color=”red”, rotation=0)
+        l=r/2
+        box=[(p[0]-r,p[1]-r),(p[0]+r,p[1]+r)]
+        canvas.create_arc(topbox,style="chord", fill=color, start=rotation, extent=180)
+        poly=[(p[0]-l,p[1]),(p[0]+l,p[1]),(p[0]+l,p[1]+r),(p[0]-l,p[1]+r)]
+        canvas.create_polygon(poly, fill=color,outline="black")
 ```
 
  
-##Task 2 - Rotating the big mushroom
+## Task 3 - Rotating the big mushroom
 
 The arc rotates easily by changing the start angle. Rectangles don’t rotate but we can rotate the points of a rectangle separately if we create it as a polygon instead!
 
@@ -76,6 +82,7 @@ Each point in the polygon is changed to become:
 <picture>
 
 In Python this is written as:
+
 ```
     	#rotate
     	rotx = transx*math.cos(-theta)-transy*math.sin(-theta)
@@ -83,13 +90,16 @@ In Python this is written as:
 ```
 
 * Putting it together
+
 ```
     	#translate to origin - -50,0 50,0
         transx=point[0]-origin[0]
         transy=point[1]-origin[1]
+        
     	#rotate
     	rotx = transx*math.cos(-theta)-transy*math.sin(-theta)
     	roty = transx*math.sin(-theta)+transy*math.cos(-theta)
+    	
     	#translate back
     	transx = rotx + origin[0]
     	transy = roty + origin[1]
@@ -99,7 +109,7 @@ In Python this is written as:
         rotatedPoints.append( transy )
 ```
  
-Using what we learned about functions when we put the shapes together, we can make a function now that takes in a list of points and returns a list of points that have been rotated by an angle about a point.
+Using what we learned about Python functions in putting the shapes together, we can make a function that takes in a list of points and returns a list of points that have been rotated by an angle about a point.
 
 ```
 def rotate(points, angle, origin):
@@ -111,9 +121,11 @@ def rotate(points, angle, origin):
     	#translate to origin - -50,0 50,0
         transx=point[0]-origin[0]
         transy=point[1]-origin[1]
+        
     	#rotate
     	rotx = transx*math.cos(-theta)-transy*math.sin(-theta)
     	roty = transx*math.sin(-theta)+transy*math.cos(-theta)
+    	
     	#translate back
     	transx = rotx + origin[0]
     	transy = roty + origin[1]
@@ -121,6 +133,7 @@ def rotate(points, angle, origin):
     	#add to the list of points
         rotatedPoints.append( transx )
         rotatedPoints.append( transy )
+        
   	return rotatedPoints
 ```
 
@@ -128,7 +141,7 @@ Notice that we try to name our variables in an understandable way, so the code r
 
 * NB now test your function, giving it lots of numbers, so that you understand what it means.
 
-## Task 3 - Making many mushrooms
+## Task 4 - Making many mushrooms
 
 *Function parameters
 
@@ -139,6 +152,7 @@ It would be pretty neat if we could do the same in Python.
 Our mushroom function lets us set size, position, color, and angle to give plenty of variety to the pizza topping, and lets us put mushroom anywhere we like.
 
 Let’s see what happens when we add a little loop, and have a slight variation for size and rotation, to make the toppings look ‘natural’:
+
 ```
 from random import randint
 for x in range(5):
@@ -148,7 +162,7 @@ for x in range(5):
     mushroom((px,py),r,rot,color)
 ```
 
-## Task 4 - Make other compound shapes
+## Task 5 - Make other compound shapes
 
 You could try:
 * Celery sticks
@@ -157,12 +171,8 @@ You could try:
 
 
 * Here’s my complete code listing, so you know what it might look like:
+
 ```
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jul 07 09:20:11 2016
-@author: jreeves
-"""
 """rotate a line on a canvas
 give it a line and a point to rotate it about
 return points to draw
