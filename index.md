@@ -17,27 +17,25 @@ We need to make a compound shape - a semicircle on top of a rectangle.
 
 ![Imgur](https://i.imgur.com/SJdGZAZ.png)
 
-* Make the semicircle
+###Make the semi-circle
 
 ```
 Create_arc((),(), style=”chord”, start=angle, extent=180)
 ```
 
-*NB: Changing the start angle but keeping the extent as 180, has the effect of rotating the arc.
+*NB: Changing the start angle but keeping the extent as 180, has the effect of rotating the arc.*
 
-* Making the rectangle
+###Making the rectangle
 
 There are two ways of creating reactangles in Tk:
 
-* create_rectangle(...)
+*Using create_rectangle(...)
+  *With a bit of trial and error, you discover that it is hard to rotate using create_rectangle
 
-** With a bit of trial and error, you discover that it is hard to rotate using create_rectangle
+*Using create_polygon(...)
+  *Polygons can be rotated with a bit of maths, so use create_polygon() to make your rectangles
 
-* create_polygon(...)
-
-** Polygons can be rotated with a bit of maths, so use create_polygon() to make your rectangles
-
-* Making a compound shapes
+###Making a compound shapes
 
 Our mushroom is made by putting the arc on top of the rectangle.
 
@@ -145,7 +143,7 @@ def rotate(points, angle, origin):
 
 Notice that we try to name our variables in an understandable way, so the code reads like a little essay reminding us what we are trying to do.
 
-* NB now test your function, giving it lots of numbers, so that you understand what it means.
+*NB: now test your function, giving it lots of numbers, so that you understand what it means*
 
 ## Task 4 - Making many mushrooms
 
