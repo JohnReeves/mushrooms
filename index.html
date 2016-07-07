@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Mushrooms by John Reeves</title>
+    <title>Mushrooms by JohnReeves</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -13,11 +13,14 @@
     <section class="page-header">
       <h1 class="project-name">Mushrooms</h1>
       <h2 class="project-tagline">Digital mushrooms for your digital pizza - thank you Elly and Tabby for the idea!</h2>
+      <a href="https://github.com/JohnReeves/mushrooms" class="btn">View on GitHub</a>
+      <a href="https://github.com/JohnReeves/mushrooms/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/JohnReeves/mushrooms/tarball/master" class="btn">Download .tar.gz</a>
     </section>
 
     <section class="main-content">
       <h1>
-<a id="mushroom-topping-worksheet" class="anchor" href="#mushroom-topping-worksheet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a></h1>
+<a id="mushroom-topping-worksheet" class="anchor" href="#mushroom-topping-worksheet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mushroom Topping worksheet</h1>
 
 <h2>
 <a id="task-1---making-one-big-mushroom" class="anchor" href="#task-1---making-one-big-mushroom" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Task 1 - Making one big mushroom</h2>
@@ -33,38 +36,31 @@
 
 <p>We need to make a compound shape - a semicircle on top of a rectangle.</p>
 
-<p><img src="http://i.imgur.com/SJdGZAZ.png" alt="Imgur"></p>
+<p><img src="https://i.imgur.com/SJdGZAZ.png" alt="Imgur"></p>
 
-<ul>
-<li>Make the semicircle</li>
-</ul>
+<h3>
+<a id="make-the-semi-circle" class="anchor" href="#make-the-semi-circle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Make the semi-circle</h3>
 
 <pre><code>Create_arc((),(), style=”chord”, start=angle, extent=180)
 </code></pre>
 
-<p>*NB: Changing the start angle but keeping the extent as 180, has the effect of rotating the arc.</p>
+<p><em>NB: Changing the start angle but keeping the extent as 180, has the effect of rotating the arc.</em></p>
 
-<ul>
-<li>Making the rectangle</li>
-</ul>
+<h3>
+<a id="making-the-rectangle" class="anchor" href="#making-the-rectangle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Making the rectangle</h3>
 
 <p>There are two ways of creating reactangles in Tk:</p>
 
-<ul>
-<li>create_rectangle(...)</li>
-</ul>
+<p>*Using create_rectangle(...)</p>
 
-<p>** With a bit of trial and error, you discover that it is hard to rotate using create_rectangle</p>
+<p>*With a bit of trial and error, you discover that it is hard to rotate using create_rectangle</p>
 
-<ul>
-<li>create_polygon(...)</li>
-</ul>
+<p>*Using create_polygon(...)</p>
 
-<p>** Polygons can be rotated with a bit of maths, so use create_polygon() to make your rectangles</p>
+<p>*Polygons can be rotated with a bit of maths, so use create_polygon() to make your rectangles</p>
 
-<ul>
-<li>Making a compound shapes</li>
-</ul>
+<h3>
+<a id="making-a-compound-shapes" class="anchor" href="#making-a-compound-shapes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Making a compound shapes</h3>
 
 <p>Our mushroom is made by putting the arc on top of the rectangle.</p>
 
@@ -172,9 +168,7 @@
 
 <p>Notice that we try to name our variables in an understandable way, so the code reads like a little essay reminding us what we are trying to do.</p>
 
-<ul>
-<li>NB now test your function, giving it lots of numbers, so that you understand what it means.</li>
-</ul>
+<p><em>NB: now test your function, giving it lots of numbers, so that you understand what it means</em></p>
 
 <h2>
 <a id="task-4---making-many-mushrooms" class="anchor" href="#task-4---making-many-mushrooms" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Task 4 - Making many mushrooms</h2>
