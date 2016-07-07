@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Mushrooms by JohnReeves</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Mushrooms</h1>
+      <h2 class="project-tagline">Digital mushrooms for your digital pizza - thank you Elly and Tabby for the idea!</h2>
+      <a href="https://github.com/JohnReeves/mushrooms" class="btn">View on GitHub</a>
+      <a href="https://github.com/JohnReeves/mushrooms/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/JohnReeves/mushrooms/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="mushroom-topping-worksheet" class="anchor" href="#mushroom-topping-worksheet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mushroom Topping worksheet</h1>
+
+<h2>
+<a id="task-1---making-one-big-mushroom" class="anchor" href="#task-1---making-one-big-mushroom" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Task 1 - Making one big mushroom</h2>
+
+<p>Open up your Python Pizza from last time, and remember the steps in making a minimal  tk canvas:</p>
+
+<pre><code>        #import the libraries
+        #create a top level object
+        #attach a canvas
+        #draw something
+        #run the mainloop
+</code></pre>
+
+<p>We need to make a compound shape - a semicircle on top of a rectangle.</p>
+
+<p><img src="http://i.imgur.com/SJdGZAZ.png" alt="Imgur"></p>
+
+<ul>
+<li>Make the semicircle</li>
+</ul>
+
+<pre><code>Create_arc((),(), style=”chord”, start=angle, extent=180)
+</code></pre>
+
+<p>*NB: Changing the start angle but keeping the extent as 180, has the effect of rotating the arc.</p>
+
+<ul>
+<li>Making the rectangle</li>
+</ul>
+
+<p>There are two ways of creating reactangles in Tk:</p>
+
+<ul>
+<li>create_rectangle(...)</li>
+</ul>
+
+<p>** With a bit of trial and error, you discover that it is hard to rotate using create_rectangle</p>
+
+<ul>
+<li>create_polygon(...)</li>
+</ul>
+
+<p>** Polygons can be rotated with a bit of maths, so use create_polygon() to make your rectangles</p>
+
+<ul>
+<li>Making a compound shapes</li>
+</ul>
+
+<p>Our mushroom is made by putting the arc on top of the rectangle.</p>
+
+<p>Linking the shapes together based on the centre of the circular arc is useful for keeping the shapes together when we move them.</p>
+
+<pre><code>    l=r/2
+    box=[(p[0]-r,p[1]-r),(p[0]+r,p[1]+r)]
+    canvas.create_arc(topbox,style="chord", fill=color, start=rot,extent=180)
+    poly=[(p[0]-l,p[1]),(p[0]+l,p[1]),(p[0]+l,p[1]+r),(p[0]-l,p[1]+r)]
+    canvas.create_polygon(poly, fill=color,outline="black")
+</code></pre>
+
+<h2>
+<a id="task-2---python-functions" class="anchor" href="#task-2---python-functions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Task 2 - Python functions</h2>
+
+<p>Putting the shapes into a function, keeps the shape together, and allows it to draw anywhere on the screen.</p>
+
+<p>Functions in Python are identified with the keyword <code>def</code>, this is what mine looks like:</p>
+
+<pre><code>    Def mushroom(p=(50,50),r=100, color=”red”, rotation=0)
+        l=r/2
+        box=[(p[0]-r,p[1]-r),(p[0]+r,p[1]+r)]
+        canvas.create_arc(topbox,style="chord", fill=color, start=rotation, extent=180)
+        poly=[(p[0]-l,p[1]),(p[0]+l,p[1]),(p[0]+l,p[1]+r),(p[0]-l,p[1]+r)]
+        canvas.create_polygon(poly, fill=color,outline="black")
+</code></pre>
+
+<h2>
+<a id="task-3---rotating-the-big-mushroom" class="anchor" href="#task-3---rotating-the-big-mushroom" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Task 3 - Rotating the big mushroom</h2>
+
+<p><img src="https://i.imgur.com/9c4YRLc.png" alt="Imgur"></p>
+
+<p>The arc rotates easily by changing the start angle. Rectangles don’t rotate but we can rotate the points of a rectangle separately if we create it as a polygon instead!</p>
+
+<p>So, an excellent use for transformations from the maths classes at school, where a rotation of a shape a point is described as:</p>
+
+<ol>
+<li>translate to origin</li>
+<li>rotate</li>
+<li>translate to original position</li>
+</ol>
+
+<p>Maths has a simple, and somewhat scary equation, to give you the points of a rotation about the origin.</p>
+
+<p><img src="https://i.imgur.com/tmQxg0G.png" alt="Imgur"></p>
+
+<p>Each point in the polygon is changed to become:</p>
+
+<p><img src="https://i.imgur.com/cudWZTy.png" alt="Imgur"></p>
+
+<p>In Python this is written as:</p>
+
+<pre><code>        #rotate
+        rotx = transx*math.cos(-theta)-transy*math.sin(-theta)
+        roty = transx*math.sin(-theta)+transy*math.cos(-theta)
+</code></pre>
+
+<ul>
+<li>Putting it together</li>
+</ul>
+
+<pre><code>        #translate to origin - -50,0 50,0
+        transx=point[0]-origin[0]
+        transy=point[1]-origin[1]
+
+        #rotate
+        rotx = transx*math.cos(-theta)-transy*math.sin(-theta)
+        roty = transx*math.sin(-theta)+transy*math.cos(-theta)
+
+        #translate back
+        transx = rotx + origin[0]
+        transy = roty + origin[1]
+
+        #add to the list of points
+        rotatedPoints.append( transx )
+        rotatedPoints.append( transy )
+</code></pre>
+
+<p>Using what we learned about Python functions in putting the shapes together, we can make a function that takes in a list of points and returns a list of points that have been rotated by an angle about a point.</p>
+
+<pre><code>def rotate(points, angle, origin):
+    import math
+    theta = math.radians(angle)
+    rotatedPoints = []
+    for point in points:
+
+        #translate to origin - -50,0 50,0
+        transx=point[0]-origin[0]
+        transy=point[1]-origin[1]
+
+        #rotate
+        rotx = transx*math.cos(-theta)-transy*math.sin(-theta)
+        roty = transx*math.sin(-theta)+transy*math.cos(-theta)
+
+        #translate back
+        transx = rotx + origin[0]
+        transy = roty + origin[1]
+
+        #add to the list of points
+        rotatedPoints.append( transx )
+        rotatedPoints.append( transy )
+
+    return rotatedPoints
+</code></pre>
+
+<p>Notice that we try to name our variables in an understandable way, so the code reads like a little essay reminding us what we are trying to do.</p>
+
+<ul>
+<li>NB now test your function, giving it lots of numbers, so that you understand what it means.</li>
+</ul>
+
+<h2>
+<a id="task-4---making-many-mushrooms" class="anchor" href="#task-4---making-many-mushrooms" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Task 4 - Making many mushrooms</h2>
+
+<p><img src="https://i.imgur.com/jr1hNi1.png" alt="Imgur"></p>
+
+<p>Mushrooms have slight differences in size, and get a bit muddled when I put them on the pizza. </p>
+
+<p>It would be pretty neat if we could do the same in Python.</p>
+
+<p>Our mushroom function lets us set size, position, color, and angle to give plenty of variety to the pizza topping, and lets us put mushroom anywhere we like.</p>
+
+<p>Let’s see what happens when we add a little loop, and have a slight variation for size and rotation, to make the toppings look ‘natural’:</p>
+
+<pre><code>from random import randint
+for x in range(5):
+    px,py=randint(20,280),randint(20,280)
+    r=randint(20,30)
+    rot=randint(-20,30)
+    mushroom((px,py),r,rot,color)
+</code></pre>
+
+<h2>
+<a id="task-5---make-other-compound-shapes" class="anchor" href="#task-5---make-other-compound-shapes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Task 5 - Make other compound shapes</h2>
+
+<p>You could try:</p>
+
+<ul>
+<li>Celery sticks</li>
+<li>Sausage</li>
+<li><p>Tomato slices</p></li>
+<li><p>Here’s my complete code listing, so you know what it might look like:</p></li>
+</ul>
+
+<pre><code>"""rotate a line on a canvas
+give it a line and a point to rotate it about
+return points to draw
+"""
+
+try:
+    import Tkinter as tk
+except ImportError:
+    import tkinter as tk
+
+def mushroom(p=(250,400),r=100,rot=30,color="red"):
+
+    def rotate(points, angle, origin):
+    import math
+    theta = math.radians(angle)
+    rotatedPoints = []
+    for point in points:
+
+        #translate to origin - -50,0 50,0
+        transx=point[0]-origin[0]
+        transy=point[1]-origin[1]
+        #rotate
+        rotx = transx*math.cos(-theta)-transy*math.sin(-theta)
+        roty = transx*math.sin(-theta)+transy*math.cos(-theta)
+        #translate back
+        transx = rotx + origin[0]
+        transy = roty + origin[1]
+
+        #add to the list of points
+        rotatedPoints.append( transx )
+        rotatedPoints.append( transy )
+    return rotatedPoints
+
+    l=r/2
+
+    topbox=[(p[0]-r,p[1]-r),(p[0]+r,p[1]+r)]
+    canvas.create_arc(topbox,style="chord", fill=color, start=rot,extent=180)
+
+    poly0=[(p[0]-l,p[1]),(p[0]+l,p[1]),(p[0]+l,p[1]+r),(p[0]-l,p[1]+r)]
+    poly=rotate(poly0, rot, p)
+    canvas.create_polygon(poly, fill=color,outline="black")
+
+# step 1: create the top level Tk object
+window=tk.Tk()
+window.title("a window")
+
+# step 2: create the canvas
+c_width,c_height=300,300
+canvas=tk.Canvas(width=c_width, height=c_height)
+
+# step 3: draw stuff on the canvas
+p,r,rot=(250,400),100,5
+color="grey"
+
+from random import randint
+
+for x in range(5):
+    px,py=randint(20,280),randint(20,280)
+    r=randint(20,30)
+    rot=randint(-20,30)
+    mushroom((px,py),r,rot,color)
+
+#px,py=c_width/2,c_height/2
+#r=100
+#rot=10
+#mushroom((px,py),r,rot)
+#
+canvas.pack()
+window.mainloop()
+</code></pre>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/JohnReeves/mushrooms">Mushrooms</a> is maintained by <a href="https://github.com/JohnReeves">JohnReeves</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
