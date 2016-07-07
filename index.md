@@ -179,8 +179,8 @@ You could try:
 * Here’s my complete code listing, so you know what it might look like:
 
 ```
-"""rotate a line on a canvas
-give it a line and a point to rotate it about
+"""rotate mushrooms on a canvas
+give it size, colour, angle of rotation and a point to rotate it about
 return points to draw
 """
  
