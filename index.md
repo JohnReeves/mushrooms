@@ -30,10 +30,12 @@ Create_arc((),(), style=”chord”, start=angle, extent=180)
 There are two ways of creating reactangles in Tk:
 
 *Using create_rectangle(...)
-  *With a bit of trial and error, you discover that it is hard to rotate using create_rectangle
+
+*With a bit of trial and error, you discover that it is hard to rotate using create_rectangle
 
 *Using create_polygon(...)
-  *Polygons can be rotated with a bit of maths, so use create_polygon() to make your rectangles
+
+*Polygons can be rotated with a bit of maths, so use create_polygon() to make your rectangles
 
 ###Making a compound shapes
 
