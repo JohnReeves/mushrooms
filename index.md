@@ -58,7 +58,7 @@ Putting the shapes into a function, keeps the shape together, and allows it to d
 Functions in Python are identified with the keyword `def`, this is what mine looks like:
 
 ```
-    Def mushroom(p=(50,50),r=100, color=”red”, rotation=0)
+    def mushroom(p=(50,50),r=100, color="red", rotation=0):
         l=r/2
         box=[(p[0]-r,p[1]-r),(p[0]+r,p[1]+r)]
         canvas.create_arc(topbox,style="chord", fill=color, start=rotation, extent=180)
